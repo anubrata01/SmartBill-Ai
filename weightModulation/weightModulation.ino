@@ -1,9 +1,8 @@
 #include <WiFi.h>
 #include <WebServer.h>
 #include "HX711.h"
+#include "config.h" // Getting the WIFI_SSID, WIFI_PASS
 
-const char* WIFI_SSID = "TP-Link_C31F anu";
-const char* WIFI_PASS = "anubrata31";
 
 WebServer server(80);
 String terminalData = "No data received yet.";  // Default message

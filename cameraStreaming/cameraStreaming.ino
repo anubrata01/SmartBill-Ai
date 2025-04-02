@@ -1,9 +1,9 @@
 #include <WebServer.h>
 #include <WiFi.h>
 #include <esp32cam.h>
+#include "config.h" // Getting the WIFI_SSID, WIFI_PASS
  
-const char* WIFI_SSID = "TP-Link_C31F anu";//TP-Link_C31F anu
-const char* WIFI_PASS = "anubrata31";//anubrata31
+
  
 WebServer server(80);
  
