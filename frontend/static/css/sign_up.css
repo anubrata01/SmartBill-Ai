@@ -1,0 +1,41 @@
+.container{
+    background: linear-gradient(135deg, #1c0c42, #2e1a67);
+    height: 100vh;
+    border-radius: 20px;
+    align-content: center;
+    text-align: center;
+    font-family: "poppins";
+}
+input{
+    padding: 10px;
+    width: 50%;
+    margin: 10px auto;
+    border: 2px solid black;
+    border-radius: 10px;
+}
+.otp{
+    padding: 5px;
+    border: 2px solid #0052CC;
+    border-radius: 10px;
+    background-color: #0052CC;
+    color: white;
+    width: 20%;
+}
+.p_no{
+    padding: 20px;
+}
+.otp:hover{
+    background-color: #3e8bff;
+    border: 2px solid #3e8bff;
+}
+p{
+    font-size: small;
+    color: #eff3f9;
+}
+a{
+    color: #0052CC;
+}
+img{
+    width: 256px;
+    height: 156px;
+}

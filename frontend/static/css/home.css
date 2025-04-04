@@ -1,0 +1,19 @@
+
+img{
+    margin: 10px auto;
+}
+.container{
+    padding: 20px;
+    align-content: center;
+    text-align: center;
+    align-items: center;
+    background: linear-gradient(135deg, #1c0c42, #2e1a67);
+    height: 100vh;
+}
+.cartAnimation{
+    width: 400px;
+    height: 400px;
+}
+.textAnimation{
+    width: 80%;
+}
