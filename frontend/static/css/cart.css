@@ -84,15 +84,105 @@
   }
   .content {
     display: flex;
+    justify-content: space-between;
   }
   .coupons, .cart {
-    flex: 1;
     padding: 20px;
     overflow-y: auto;
     scrollbar-width: none;
     height: 100vh;
     padding-top: 0;
   }
+  .cart{
+    flex:1;
+  }
+  .coupons{
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+  }
+/* Coupon card design */
+  .coupon-card-wrapper{
+    background: white;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    border-radius: 10px;
+    padding: 15px;
+    width: 100%;
+    position: relative;
+  }
+  .coupon-card {
+    background: white;
+    border-radius: 10px;
+    padding: 15px;
+    width: 45%;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    position: relative;
+  }
+  .product-img {
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+    display: block;
+    margin: 10px auto;
+  }
+  .aisle-tag {
+    background: black;
+    color: white;
+    font-size: 10px;
+    display: inline-block;
+    padding: 2px 6px;
+    margin-bottom: 5px;
+    border-radius: 3px;
+  }
+  .discount {
+    background-color: #fdd835;
+    color: black;
+    font-weight: bold;
+    margin-bottom: 5px;
+    padding: 2px 6px;
+    border-radius: 3px;
+    width: 40%; 
+  }
+  .product-name {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    display: block;
+  }
+  .button {
+    background: #eee;
+    padding: 6px 10px;
+    border-radius: 20px;
+    margin-top: 5px;
+    font-size: 12px;
+    text-align: center;
+    cursor: pointer;
+    border: 1px dashed #aaa;
+    width: 100%;
+  }
+  .clipCoupon{
+    background-color: white;
+    border:2px dashed black;
+  }
+  .button:hover {
+    background: #ddd;
+  }
+  .exclusive-tag {
+    background: #fdd835;
+    color: black;
+    font-weight: bold;
+    font-size: 12px;
+    padding: 4px 8px;
+    border-radius: 0 0 5px 5px;
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
+            
+/* Coupon card design */
+  
   h2{
       position: sticky;
       top: 0;
@@ -104,7 +194,7 @@
   .mylogo{
     color:#009688;
   }
-  .coupon-card, .cart-item {
+  .cart-item {
     background-color: #fefefe;
     border: 1px solid #ddd;
     border-radius: 10px;
@@ -114,7 +204,7 @@
     align-items: center;
     justify-content: space-between;
   }
-  .coupon-card img, .cart-item img {
+  .cart-item img {
     width: 50px;
     height: 50px;
     border-radius: 8px;
