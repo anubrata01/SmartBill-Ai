@@ -383,3 +383,27 @@
 
 
   /* Login Sign up page design */
+
+/* cart counter*/
+  .cart-img-counter {
+    position: absolute;
+    top: -6px;
+    right: -20px;
+    background: rgb(16, 0, 234);
+    color: white;
+    font-size: 14px;
+    padding: 2px 6px;
+    border-radius: 20px;
+    width: 35px;
+    height: 25px;
+    font-weight: bold;
+    min-width: 20px;
+    text-align: center;
+    border: 3px solid white;
+  }
+  .cart-img-container {
+    position: relative;
+    font-size: 30px;
+    cursor: pointer;
+  }
+/* cart counter*/

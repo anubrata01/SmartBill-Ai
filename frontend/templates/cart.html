@@ -7,6 +7,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../static/css/cart.css">
   <script src="../static/js/login-signup.js" defer></script>
+  <script src="../static/js/cart-couter.js"></script>
 </head>
 <body>
     <div class="app">
@@ -34,10 +35,13 @@
                     </div>
                     
                     <div class="checkout">
-                        <img src="../static/resources/shopping-icon-white.png" alt="cart icon" 
-                            style="width: 31px; height: 26px;"
-                        >
-                        <h3>Checkout</h3>
+                        <div class="cart-img-container">
+                            <img src="../static/resources/shopping-icon-white.png" alt="cart icon" 
+                                style="width: 31px; height: 26px;"
+                            >
+                            <span class="cart-img-counter" id="cartCount">0</span>
+                        </div>
+                            <h3>Checkout</h3>                        
                     </div>
 
                 </div>
@@ -212,7 +216,7 @@
                         <div class="new">$3.97</div>
                     </div>
                 </div>
-                <div class="add-item-btn">Add item with Code</div>
+                <div class="add-item-btn" onclick="addToCart()">Add item with Code</div>
             </div>
         </div>
         <!-- Login Modal -->
