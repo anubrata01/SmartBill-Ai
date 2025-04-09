@@ -1,3 +1,10 @@
+/* 
+--red: #ff101fff;
+--navy-blue: #08007bff;
+--white: #ffffffff;
+--black: #000000ff;
+--gold: #ffd400ff;
+*/
 * {
     margin: 0;
     padding: 0;
@@ -19,7 +26,7 @@
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);    
   }
   .top-bar {
-    background-color: #007a52;
+    background-color: #08007b;
     color: white;
     padding: 10px 20px;
     display: flex;
@@ -60,8 +67,12 @@
     font-size: 1.4rem;
     font-weight: bold;
   }
+  .mylogo{
+    height: 10px;
+    width:10px;
+  }
   .checkout {
-    background-color: #004c37;
+    background-color: #00104c;
     color: white;
     padding: 10px 20px;
     border-radius:0px 10px 10px 0px;
@@ -90,6 +101,7 @@
     padding: 20px;
     overflow-y: auto;
     scrollbar-width: none;
+    margin-top: 2%;
     height: 100vh;
     padding-top: 0;
   }
@@ -100,6 +112,11 @@
     display: flex;
     flex-direction: column;
     width: 50%;
+    margin-left: 2%;
+    margin-right: 2%;
+    border-radius: 5%;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    
   }
 /* Coupon card design */
   .coupon-card-wrapper{
@@ -114,6 +131,7 @@
   }
   .coupon-card {
     background: white;
+    border: 2px solid #ff101fff;
     border-radius: 10px;
     padding: 15px;
     width: 45%;
@@ -137,8 +155,8 @@
     border-radius: 3px;
   }
   .discount {
-    background-color: #fdd835;
-    color: black;
+    background-color: #ff101fff;
+    color: white;
     font-weight: bold;
     margin-bottom: 5px;
     padding: 2px 6px;
@@ -170,12 +188,12 @@
     background: #ddd;
   }
   .exclusive-tag {
-    background: #fdd835;
-    color: black;
+    background:#ff101fff;
+    color: white;
     font-weight: bold;
     font-size: 12px;
     padding: 4px 8px;
-    border-radius: 0 0 5px 5px;
+    border-radius: 0 5px 0 5px;
     position: absolute;
     top: 0;
     right: 0;
@@ -191,9 +209,7 @@
       padding: 10px;
       padding-top: 30px;
   }
-  .mylogo{
-    color:#009688;
-  }
+
   .cart-item {
     background-color: #fefefe;
     border: 1px solid #ddd;
@@ -214,7 +230,7 @@
     margin-left: 15px;
   }
   .clip-btn {
-    background-color: #ffe600;
+    background-color: #ffd400ff;
     padding: 5px 10px;
     border: none;
     border-radius: 5px;
@@ -225,7 +241,7 @@
     text-align: right;
   }
   .price-box .new {
-    background-color: #ffe600;
+    background-color: #ffd400ff;
     padding: 5px 8px;
     font-weight: 700;
     border-radius: 5px;
@@ -237,7 +253,7 @@
   }
   .add-item-btn {
     margin-top: 20px;
-    background-color: #00a86b;
+    background-color: #0800a8;
     color: white;
     padding: 1rem;
     text-align: center;
@@ -262,3 +278,108 @@
       height: 100%;
 
   }
+  /* Login Sign up page design */
+  .open-btn {
+    padding: 14px 30px;
+    background: #08007bff;
+    color: #fff;
+    border: none;
+    border-radius: 30px;
+    font-size: 16px;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0, 123, 95, 0.3);
+  }
+
+  .popup-overlay {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    visibility: hidden;
+    opacity: 0;
+    transition: all 0.3s ease;
+    z-index: 999;
+  }
+
+  .popup-overlay.active {
+    visibility: visible;
+    opacity: 1;
+  }
+
+  .popup {
+    background: #fff;
+    padding: 30px 25px;
+    border-radius: 20px;
+    width: 90%;
+    max-width: 360px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+    transform: translateY(-40px);
+    transition: all 0.4s ease;
+    opacity: 0;
+    position: relative;
+  }
+
+  .popup-overlay.active .popup {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  .popup h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #08007bff;
+  }
+
+  .popup input {
+    width: 100%;
+    padding: 12px 14px;
+    margin: 12px 0;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    font-size: 15px;
+  }
+
+  .popup button {
+    width: 100%;
+    padding: 12px;
+    background: #08007bff;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background 0.3s ease;
+  }
+
+  .popup button:hover {
+    background: #08007bff;
+  }
+
+  .switch {
+    text-align: center;
+    margin-top: 15px;
+    font-size: 14px;
+  }
+
+  .switch a {
+    color: #08007bff;
+    font-weight: bold;
+    text-decoration: underline;
+    cursor: pointer;
+  }
+
+  .close-btn {
+    position: absolute;
+    top: 12px;
+    right: 15px;
+    font-size: 20px;
+    color: #999;
+    cursor: pointer;
+  }
+
+
+  /* Login Sign up page design */
