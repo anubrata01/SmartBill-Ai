@@ -1,7 +1,6 @@
 const loginModal = document.getElementById("loginModal");
 const signupModal = document.getElementById("signupModal");
-const signupForm = document.getElementById("signupForm");
-const otpForm = document.getElementById("otpForm");
+const otpModel = document.getElementById("otpModel");
 
 function openLogin() {
   loginModal.classList.add("active");
@@ -10,23 +9,22 @@ function openLogin() {
 function closeAll() {
   loginModal.classList.remove("active");
   signupModal.classList.remove("active");
-  otpForm.style.display = "none";
-  signupForm.style.display = "block";
+  otpModel.classList.remove("active");
 }
 
 function switchToSignup() {
   loginModal.classList.remove("active");
   signupModal.classList.add("active");
-  signupForm.style.display = "block";
-  otpForm.style.display = "none";
 }
 
 function switchToLogin() {
   signupModal.classList.remove("active");
+  otpModel.classList.remove("active");
   loginModal.classList.add("active");
 }
 
 function showOTP() {
-  signupForm.style.display = "none";
-  otpForm.style.display = "block";
+  signupModal.classList.remove("active");
+  loginModal.classList.remove("active");
+  otpModel.classList.add("active");
 }

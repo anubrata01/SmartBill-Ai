@@ -222,38 +222,39 @@
         <!-- Login Modal -->
         <div class="popup-overlay" id="loginModal">
             <div class="popup">
-            <span class="close-btn" onclick="closeAll()">&times;</span>
-            <h2>Login</h2>
-            <input type="tel" placeholder="Phone number">
-            <button onclick="showOTP()">Log In</button>
-            <div class="switch">
-                Don’t have an account? <a onclick="switchToSignup()">Sign up</a>
-            </div>
+                <span class="close-btn" onclick="closeAll()">&times;</span>
+                <h2>Login</h2>
+                <input type="tel" placeholder="Phone number">
+                <button onclick="showOTP()">Log In</button>
+                <div class="switch">
+                    Don’t have an account? <a onclick="switchToSignup()">Sign up</a>
+                </div>
             </div>
         </div>
         
         <!-- Signup Modal -->
         <div class="popup-overlay" id="signupModal">
-            <div class="popup" id="signupForm">
-            <span class="close-btn" onclick="closeAll()">&times;</span>
-            <h2>Sign Up</h2>
-            <input type="text" id="name" placeholder="Full Name">
-            <input type="tel" id="phone" placeholder="Phone Number">
-            <button onclick="showOTP()">Send OTP</button>
-            <div class="switch">
-                Already have an account? <a onclick="switchToLogin()">Log in</a>
+            <div class="popup">
+                <span class="close-btn" onclick="closeAll()">&times;</span>
+                <h2>Sign Up</h2>
+                <input type="text" id="name" placeholder="Full Name">
+                <input type="tel" id="phone" placeholder="Phone Number">
+                <button onclick="showOTP()">Send OTP</button>
+                <div class="switch">
+                    Already have an account? <a onclick="switchToLogin()">Log in</a>
+                </div>
             </div>
-            </div>
-        
-            <!-- OTP Section -->
-            <div class="popup" id="otpForm" style="display:none;">
-            <span class="close-btn" onclick="closeAll()">&times;</span>
-            <h2>Verify OTP</h2>
-            <input type="text" placeholder="Enter OTP">
-            <button>Verify & Register</button>
-            <div class="switch">
-                Already have an account? <a onclick="switchToLogin()">Log in</a>
-            </div>
+        </div>
+        <!-- OTP Model -->
+        <div class="popup-overlay" id="otpModel">
+            <div class="popup">
+                <span class="close-btn" onclick="closeAll()">&times;</span>
+                <h2>Verify OTP</h2>
+                <input type="text" placeholder="Enter OTP">
+                <button>Verify & Register</button>
+                <div class="switch">
+                    Already have an account? <a onclick="switchToLogin()">Log in</a>
+                </div>
             </div>
         </div>
     </div>
