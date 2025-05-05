@@ -38,6 +38,22 @@ def predict():
     product_info["conf"] = max([p["confidence"] for p in detected_products if p["name"] == product_name], default=0)
     return jsonify(product_info)
 
+@app.route("/create_order", methods=["POST"])
+def create_order_api():
+    data = request.get_json() or {}
+    order_amount = data.get("amount", 50000)
+    return jsonify(create_order(order_amount))
 
+@app.route("/verify_payment", methods=["POST"])
+def verify_payment_api():
+    data = request.get_json()
+    try:
+        verify_payment(data)
+        return jsonify({"status": "Payment Verified"}), 200
+    except:
+        return jsonify({"status": "Payment Verification Failed"}), 400
+@app.route('/checkout')
+def checkout():
+    return render_template('checkout.html')
 if __name__ == '__main__':
     app.run(host='0.0.0.0',debug=True)

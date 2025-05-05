@@ -7,7 +7,9 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../static/css/cart.css">
   <script src="../static/js/login-signup.js" defer></script>
-  <script src="../static/js/cart-couter.js"></script>
+  <script src="../static/js/cart-couter.js" defer></script>
+  <script src= "../static/js/add-to-cart.js" defer></script>
+  <script src="../static/js/checkout.js" defer></script>
 </head>
 <body>
     <div class="app">
@@ -38,6 +40,7 @@
                         <div class="cart-img-container">
                             <img src="../static/resources/shopping-icon-white.png" alt="cart icon" 
                                 style="width: 31px; height: 26px;"
+                                onclick = "check_out()"
                             >
                             <span class="cart-img-counter" id="cartCount">0</span>
                         </div>
