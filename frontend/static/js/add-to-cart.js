@@ -2,7 +2,7 @@ let cart = {}; // Tracks product quantities
 let lastDetectedTime = {}; // Tracks last detection timestamp
 
 function getPrediction() {
-    fetch('http://192.168.0.103:5000/predict')
+    fetch('http://192.168.1.113:5000/predict')
         .then(response => response.json())
         .then(data => {
             console.log("Prediction:", data);

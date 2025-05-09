@@ -235,8 +235,8 @@
             <div class="popup">
                 <span class="close-btn" onclick="closeAll()">&times;</span>
                 <h2>Login</h2>
-                <input type="tel" placeholder="Phone number">
-                <button onclick="showOTP()">Log In</button>
+                <input type="tel" id="loginPhone" placeholder="Phone number">
+                <button onclick="checkUserExistence()">Log In</button>
                 <div class="switch">
                     Don’t have an account? <a onclick="switchToSignup()">Sign up</a>
                 </div>
@@ -250,24 +250,26 @@
                 <h2>Sign Up</h2>
                 <input type="text" id="name" placeholder="Full Name">
                 <input type="tel" id="phone" placeholder="Phone Number">
-                <button onclick="showOTP()">Send OTP</button>
+                <button onclick="sendSignUpData()">Send OTP</button> <!-- Updated to call sendSignUpData -->
                 <div class="switch">
                     Already have an account? <a onclick="switchToLogin()">Log in</a>
                 </div>
             </div>
         </div>
+
         <!-- OTP Model -->
         <div class="popup-overlay" id="otpModel">
             <div class="popup">
                 <span class="close-btn" onclick="closeAll()">&times;</span>
                 <h2>Verify OTP</h2>
-                <input type="text" placeholder="Enter OTP">
-                <button>Verify & Register</button>
+                <!-- Added id="otpInput" for accessing OTP in JS -->
+                <input type="number" id="otpInput" placeholder="Enter OTP">
+                <button onclick="verifyOTP()">Verify & Register</button>
                 <div class="switch">
                     Already have an account? <a onclick="switchToLogin()">Log in</a>
                 </div>
             </div>
-        </div>
+        </div>        
     </div>
 </body>
 </html>
