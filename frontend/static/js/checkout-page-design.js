@@ -1,12 +1,12 @@
 let cart = JSON.parse(localStorage.getItem("cart")) || {};
 let total_price = 0;
 
-// Update cart on initial load
-updateCart();
-
-// Expose to global for access in other files
+// Expose to global for Razorpay
 window.cart = cart;
 window.total_price = total_price;
+
+// Run on load
+updateCart();
 
 function removeItem(product) {
     if (cart[product]["quantity"] > 1) {
@@ -21,36 +21,75 @@ function removeItem(product) {
 }
 
 function updateCart() {
-    let cart_item = document.querySelector('.cart');
-    cart_item.innerHTML = `<h2>Your cart</h2>`;
+    const cartContainer = document.querySelector('.order-summary');
+    const priceBox = document.querySelector('.price-details');
+
+    // Clear previous content
+    cartContainer.innerHTML = `<h2>ORDER SUMMARY</h2>`;
     total_price = 0;
-    let no_of_product = 0;
+    let itemCount = 0;
 
     for (let product in cart) {
-        let li = document.createElement('div');
-        li.className = `cart-item`;
-        li.innerHTML = `
-            <img src="${cart[product]["image"]}" alt="${product}" width="50">
+        const item = document.createElement('div');
+        item.className = 'cart-item';
+
+        item.innerHTML = `
+            <img src="${cart[product].image}" alt="${product}">
             <div class="item-details">
                 <div><strong>${product} x ${cart[product].quantity}</strong></div>
+                <div style="font-size: 0.8rem; color: green;">✓ ${cart[product].coupon || ''}</div>
             </div>
             <div class="price-box">
                 <div class="new">₹${cart[product].price.toFixed(2)}</div>
-                <div class="old">$5.99</div>
+                <div class="old">₹${cart[product].original || ''}</div>
             </div>
             <img src="../static/resources/trash bin 1 black.svg" alt="remove item" class="remove-item" onclick="removeItem('${product}')">
         `;
-        cart_item.appendChild(li);
-        no_of_product += cart[product]["quantity"];
-        total_price += cart[product]["price"];
+
+        cartContainer.appendChild(item);
+        total_price += cart[product].price;
+        itemCount += cart[product].quantity;
     }
 
-    // Add payment button
-    cart_item.innerHTML += `<div class="payment" id="payment">Pay</div>`;
+    // Update right-side price panel
+    if (priceBox) {
+        priceBox.innerHTML = `
+            <h3>PRICE DETAILS</h3>
+            <div class="price-line">
+                <span>Price (${itemCount} items)</span>
+                <span>₹${total_price.toFixed(2)}</span>
+            </div>
+            <div class="price-line">
+                <span>Shipping Fee</span>
+                <span>Free</span>
+            </div>
+            <div class="price-line total">
+                <span>Total Payable</span>
+                <span>₹${total_price.toFixed(2)}</span>
+            </div>
+            <div class="savings">
+                Your Total Savings on this order: ₹${calculateSavings()}
+            </div>
+            <button type="submit" class="continue-btn">CONTINUE</button>
+        `;
+    }
 
-    // 🔑 Attach click handler after it's created
-    document.querySelector('#payment').onclick = window.handlePayment;
-
-    // Update global variable
+    // Save updated total globally
     window.total_price = total_price;
+}
+
+const payBtn = document.querySelector('.continue-btn');
+if (payBtn) {
+    payBtn.addEventListener("click", window.handlePayment);
+}
+
+// Optional: Savings logic
+function calculateSavings() {
+    let savings = 0;
+    for (let product in cart) {
+        if (cart[product].original) {
+            savings += (cart[product].original - cart[product].price);
+        }
+    }
+    return savings.toFixed(2);
 }

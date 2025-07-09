@@ -1,19 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Checkout</title>
-    <script src="https://checkout.razorpay.com/v1/checkout.js" defer></script>
-    
-    <script src="../static/js/checkout-page-design.js" defer></script>
-    <link rel="stylesheet" href="../static/css/checkout-design.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Checkout</title>
+  <script src="https://checkout.razorpay.com/v1/checkout.js" defer></script>
+  <script src="../static/js/checkout.js" defer></script>
+  <script src="../static/js/config.js" defer></script>
+  <script src="../static/js/checkout-page-design.js" defer></script>
+  <link rel="stylesheet" href="../static/css/checkout-design.css" />
 </head>
 <body>
-    <form action="/create_order" method="post">
-        <div class="cart">
-            <script src="../static/js/checkout.js" defer></script>
-        </div>
-    </form>
+  <div class="cart">
+    <div class="order-summary"></div>
+    <div class="price-details"></div>
+  </div>
 </body>
 </html>

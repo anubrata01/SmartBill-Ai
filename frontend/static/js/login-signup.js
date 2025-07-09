@@ -27,17 +27,24 @@ function showOTP() {
   loginModal.classList.remove("active");
   otpModel.classList.add("active");
 }
-
+// variable to hold phone number
+let phoneNumber='';
+let Username = "";
+// Function to login
+function login(){
+  phoneNumber = document.getElementById("LoginPhone").value;
+  checkUserExistence(phoneNumber);
+}
 // Function to check if the user exists in the database
-function checkUserExistence() {
-  const phoneNumber = document.getElementById("loginPhone").value;
+function checkUserExistence(phone) {
+  phoneNumber = phone;
 
   // Check if the phone number is valid
   if (!phoneNumber) {
     alert("Please enter a valid phone number.");
     return;
   }
-
+  showLoader();
   // Send the phone number to the backend to check if the user exists
   fetch('/check_user_existence', {
     method: 'POST',
@@ -46,33 +53,37 @@ function checkUserExistence() {
   })
   .then(response => response.json())
   .then(data => {
+    hideLoader();
     if (data.exists) {
       // User exists, show OTP modal
-      showOTP();
-      sendOTP();
+      Username = data.exists.FullName ;
+      sendOTP(phone);
     } else {
       // User doesn't exist, redirect to signup page
       switchToSignup();
     }
   })
   .catch(error => {
+    hideLoader();
     console.error("Error checking user existence:", error);
     alert("An error occurred. Please try again.");
   });
 }
 
 // Function to send OTP and move to OTP verification screen
-function sendOTP() {
-  const phoneNumber = document.getElementById("loginPhone").value;
-
+function sendOTP(phone) {
+  phoneNumber = phone;
+  console.log(phoneNumber)
   // Send OTP to the backend
+  showLoader(); // Show loader
   fetch('/send_otp', {
     method: 'POST',
-    body: new URLSearchParams({ 'phone_number': phoneNumber }),
+    body: new URLSearchParams({ 'phone_number': phone }),
     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
   })
   .then(response => response.json())
   .then(data => {
+    hideLoader();
     if (data.message) {
       alert("OTP sent successfully!");
       // Move to OTP verification modal
@@ -82,6 +93,7 @@ function sendOTP() {
     }
   })
   .catch(error => {
+    hideLoader();
     console.error("Error sending OTP:", error);
     alert("An error occurred. Please try again.");
   });
@@ -89,9 +101,8 @@ function sendOTP() {
 
 // Function to verify OTP
 function verifyOTP() {
-  const phoneNumber = document.getElementById("loginPhone").value;
   const otp = document.getElementById("otpInput").value;
-
+  showLoader();
   // Send OTP verification request to the backend
   fetch('/verify_otp', {
     method: 'POST',
@@ -100,32 +111,38 @@ function verifyOTP() {
   })
   .then(response => response.json())
   .then(data => {
+    hideLoader();
     if (data.message) {
       alert("OTP verified successfully!");
+      showSuccessAnimation();
       // Proceed with login or other actions
       Create_user(Username,phoneNumber)
+      document.getElementById("signUpWrapper").innerHTML=`<h2 style="color: black; padding: 10px; font-weight:Bolder">Welcome ${Username}!</h2>`
       closeAll();
     } else {
       alert("Invalid OTP.");
     }
   })
   .catch(error => {
+    hideLoader();
     console.error("Error verifying OTP:", error);
     alert("An error occurred. Please try again.");
   });
 }
 
 // Function to send user details and create a new user
-let Username = "";
+
 function sendSignUpData() {
   Username = document.getElementById("name").value;
-  const phoneNumber = document.getElementById("phone").value;
-
+  phoneNumber = document.getElementById("NewPhone").value;
   // Validate input fields
   if (!Username || !phoneNumber) {
     alert("Please enter both your name and phone number.");
+    console.log(Username)
+    console.log(phoneNumber)
     return;
   }
+  showLoader();
   fetch('/check_user_existence', {
     method: 'POST',
     body: new URLSearchParams({ 'phone_number': phoneNumber }),
@@ -133,15 +150,15 @@ function sendSignUpData() {
   })
   .then(response => response.json())
   .then(data => {
+    hideLoader();
     if (!data.exists) {
       // User exists, show OTP modal
-      showOTP();
-      sendOTP();
+      sendOTP(phoneNumber);
+      
     } else {
       // User doesn't exist, redirect to signup page
       alert("Already existing member! Please log in");
-      showOTP();
-      sendOTP();
+      sendOTP(phoneNumber);
     }
   })
 
@@ -155,15 +172,35 @@ function Create_user(name,phoneNumber){
   })
   .then(response => response.json())
   .then(data => {
+    hideLoader();
     if (data.message) {
-      alert(data.message);
+      //alert(data.message);
       // Proceed to login or other actions
     } else {
-      alert("Failed to create user. Please try again.");
+      
     }
   })
   .catch(error => {
+    hideLoader();
     console.error("Error creating user:", error);
     alert("An error occurred. Please try again.");
   });
 }
+
+function showLoader() {
+  document.getElementById("loader").style.display = "flex";
+}
+
+function hideLoader() {
+  document.getElementById("loader").style.display = "none";
+}
+
+function showSuccessAnimation() {
+  const animation = document.getElementById("successAnimation");
+  animation.style.display = "flex";
+
+  setTimeout(() => {
+    animation.style.display = "none";
+  }, 2000); // Hide after 2 seconds
+}
+

@@ -1,6 +1,7 @@
 from flask import Flask, jsonify, render_template, request,render_template_string,send_from_directory,send_file
 from models.predict import get_detected_product
-from database.database import fetch_product_details
+from models.weight import get_weight
+from database.database import fetch_product_details,fetch_all_coupons
 from payments.payments import create_order, verify_payment
 from database.database import fetch_user,create_user
 from OTP.otp_service import generate_otp, store_otp, send_otp, verify_otp
@@ -90,19 +91,57 @@ def cart():
 def test():
     return render_template("test.html")
 
+
+@app.route('/coupon')
+def coupon():
+    coupons = fetch_all_coupons()
+    return jsonify(coupons), 200
+
+# @app.route('/predict')
+# def predict():
+#     product_name, detected_products = get_detected_product()
+#     if not product_name:
+#         return jsonify({"error": "No product detected"}), 404
+
+#     product_info = fetch_product_details(product_name)
+#     if not product_info:
+#         return jsonify({"error": "Product not found in database"}), 404
+
+#     # Add confidence info
+#     product_info["conf"] = max([p["confidence"] for p in detected_products if p["name"] == product_name], default=0)
+#     return jsonify(product_info)
+
 @app.route('/predict')
 def predict():
     product_name, detected_products = get_detected_product()
     if not product_name:
         return jsonify({"error": "No product detected"}), 404
 
-    product_info = fetch_product_details(product_name)
-    if not product_info:
+    product_variants = fetch_product_details(product_name)
+    if not product_variants:
         return jsonify({"error": "Product not found in database"}), 404
 
-    # Add confidence info
-    product_info["conf"] = max([p["confidence"] for p in detected_products if p["name"] == product_name], default=0)
-    return jsonify(product_info)
+    # Add confidence info to each variant (same for all if needed)
+    confidence = max(
+        [p["confidence"] for p in detected_products if p["name"] == product_name],
+        default=0
+    )
+
+    for variant in product_variants:
+        variant["conf"] = confidence
+
+    return jsonify(product_variants)
+
+
+# Get the weight
+@app.route("/weight")
+def weight():
+    weight_value = get_weight()
+    if weight_value is not None:
+        return {"weight": weight_value}, 200
+    else:
+        return {"error": "Failed to fetch weight"}, 500
+
 
 @app.route("/create_order", methods=["POST"])
 def create_order_api():

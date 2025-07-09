@@ -10,32 +10,44 @@
   <script src="../static/js/cart-couter.js" defer></script>
   <script src= "../static/js/add-to-cart.js" defer></script>
   <script src="../static/js/checkout.js" defer></script>
+  <script src="../static/js/fetch-coupons.js" defer></script>
+  <script src="../static/js/config.js" defer></script>
 </head>
 <body>
     <div class="app">
         <div class="top-bar">
-            <div class="card-wrapper">
+            <img src="../static/resources/my-logo.png" alt="logo" class="mylogo" style="width: 107px;height: 81px;">
+
+            <div class="card-wrapper" id="signUpWrapper">
+                <!--
                 <div class="card">
                     <img src="../static/resources/card 1 black.svg" alt="login/sign up" onclick="openLogin()">
                 </div>
-                <h3>Log In</h3>
+                -->
+                <h3 style="color: black; padding: 10px;" onclick="openLogin()">Sign Up</h3>
             </div>
             
-            <img src="../static/resources/logo.svg" alt="logo" class="mylogo">
+
             
+            <!--<h1 style="color: black;">Scan Product</h1>-->
+            <p style="color: black;">how it works</p>
+            <p style="color: black;">contact</p>
             <div class="total-checkout-support-wrapper">
                 <div class="total-checkout-wrapper">
                     <div class="totals">
                         <div class="old-amount">
-                            <div class="amount">$12.99</div>
+                            <div class="amount">₹0</div>
                             <div>Subtotal</div>
                         </div>
                         <div class="new-amount">
-                            <div class="amount" style="background: #ffd400ff; color: black; padding: 2px 10px; border-radius: 4px;">$11.99</div>
+                            <div class="amount" style="background: #ffd400ff; color: black; padding: 2px 10px; border-radius: 4px;">₹0</div>
                             <div>Savings</div>
                         </div>
                     </div>
-                    
+                    <!--
+                    <div class="customer-service">
+                        <img src="../static/resources/support black.svg" alt="customer support">
+                    </div> -->
                     <div class="checkout">
                         <div class="cart-img-container">
                             <img src="../static/resources/shopping-icon-white.png" alt="cart icon" 
@@ -48,9 +60,7 @@
                     </div>
 
                 </div>
-                <div class="customer-service">
-                    <img src="../static/resources/support black.svg" alt="customer support">
-                </div>
+
             </div>
 
         </div>
@@ -58,10 +68,10 @@
         <div class="content">
       <!-- Left: Coupons -->
         <div class="coupons">
-            <h2>Coupons</h2>
+            <h2>Offers</h2>
             <div class="coupon-card-wrapper">
                 
-
+                <!--
                 <div class="coupon-card">
                     <div class="exclusive-tag">Cart exclusive</div>
                     <img src="https://via.placeholder.com/100" class="product-img">
@@ -131,12 +141,21 @@
                     <div class="button">See eligible items</div>
                     <div class="button clipCoupon">✂ Clip coupon</div>
                 </div>
+                -->
             </div>
         </div>
-        <div class="devider"></div>
+        <!--<div class="devider"></div> -->
         <!-- Right: Cart -->
             <div class="cart">
                 <h2>Your cart</h2>
+
+                <!--Steps Images-->
+                <img src="../static/images/step 1.png" alt="" class="step1 fade-in-left delay-1" height="200px" width="400px">
+                <img src="../static/images/step 2.png" alt="" class="step2 fade-in-left delay-2" height="200px" width="400px">
+                <img src="../static/images/step 3.png" alt="" class="step3 fade-in-left delay-3" height="200px" width="400px">
+
+
+                <!--
                 <div class="cart-item">
                     <img src="" alt="ravioli">
                     <div class="item-details">
@@ -226,8 +245,10 @@
                         <div class="new">$3.97</div>
                     </div>
                     <img src="../static/resources/trash bin 1 black.svg" alt="remove item" class="remove-item">
-                </div>
+                </div> -->
+                <!-- Add item with code
                 <div class="add-item-btn" onclick="addToCart()">Add item with Code</div>
+                -->
             </div>
         </div>
         <!-- Login Modal -->
@@ -235,13 +256,23 @@
             <div class="popup">
                 <span class="close-btn" onclick="closeAll()">&times;</span>
                 <h2>Login</h2>
-                <input type="tel" id="loginPhone" placeholder="Phone number">
-                <button onclick="checkUserExistence()">Log In</button>
+                <input type="tel" id="LoginPhone" placeholder="Phone number">
+                <button onclick="login()">Log In</button>
                 <div class="switch">
                     Don’t have an account? <a onclick="switchToSignup()">Sign up</a>
                 </div>
             </div>
         </div>
+        <!--Loader-->
+        <div id="loader" class="loader-overlay">
+        <div class="bouncing-loader">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+        </div>
+
+
         
         <!-- Signup Modal -->
         <div class="popup-overlay" id="signupModal">
@@ -249,7 +280,7 @@
                 <span class="close-btn" onclick="closeAll()">&times;</span>
                 <h2>Sign Up</h2>
                 <input type="text" id="name" placeholder="Full Name">
-                <input type="tel" id="phone" placeholder="Phone Number">
+                <input type="tel" id="NewPhone" placeholder="Phone Number">
                 <button onclick="sendSignUpData()">Send OTP</button> <!-- Updated to call sendSignUpData -->
                 <div class="switch">
                     Already have an account? <a onclick="switchToLogin()">Log in</a>
@@ -269,7 +300,13 @@
                     Already have an account? <a onclick="switchToLogin()">Log in</a>
                 </div>
             </div>
-        </div>        
+        </div>
+        <div id="successAnimation" class="success-overlay">
+            <img src="../static/resources/success animation.gif" alt="Success" class="success-gif">
+        </div>
+
+
+        
     </div>
 </body>
 </html>
