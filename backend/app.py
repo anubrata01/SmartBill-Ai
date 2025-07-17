@@ -71,45 +71,20 @@ def verify_otp_route():
     else:
         return jsonify({"error": "Invalid OTP"}), 400
     
-@app.route('/login')
-def login():
-    return render_template("login.html")
-
-@app.route('/signup')
-def signUp():
-    return render_template("sign_up.html")
-
-@app.route('/otp')
-def otp():
-    return render_template("otp.html")
 
 @app.route('/cart')
 def cart():
     return render_template("cart.html")
 
-@app.route('/test')
-def test():
-    return render_template("test.html")
-
-
 @app.route('/coupon')
 def coupon():
     coupons = fetch_all_coupons()
+    print(coupons)
     return jsonify(coupons), 200
 
-# @app.route('/predict')
-# def predict():
-#     product_name, detected_products = get_detected_product()
-#     if not product_name:
-#         return jsonify({"error": "No product detected"}), 404
-
-#     product_info = fetch_product_details(product_name)
-#     if not product_info:
-#         return jsonify({"error": "Product not found in database"}), 404
-
-#     # Add confidence info
-#     product_info["conf"] = max([p["confidence"] for p in detected_products if p["name"] == product_name], default=0)
-#     return jsonify(product_info)
+@app.route('/thank_you')
+def thank_you():
+    return render_template('thank_you.html')
 
 @app.route('/predict')
 def predict():
