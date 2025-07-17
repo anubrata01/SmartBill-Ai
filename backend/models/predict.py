@@ -4,10 +4,11 @@ import requests
 import numpy as np
 import cv2
 import json
+import config
 
 # Load model globally (faster)
-model = YOLO("D:/final year project/my_model/my_model.pt")
-ip_camera_url = "http://192.168.0.104/cam-hi.jpg"
+model = YOLO("D:/SmartBill Ai/my_model/my_model.pt")
+ip_camera_url = config.CameraUrl
 
 def get_detected_product():
     try:
@@ -22,7 +23,7 @@ def get_detected_product():
         results = model.predict(frame)
         detected_products = []
 
-        highest_confidence = 0.7
+        highest_confidence = 0.77
         best_product = None
 
         for result in results:
