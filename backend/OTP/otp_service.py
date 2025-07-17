@@ -19,6 +19,8 @@ def store_otp(phone_number, otp):
 
 def send_otp(phone_number, otp):
     """Send OTP via Twilio."""
+    print(phone_number,otp)
+    print(type(phone_number))
     try:
         message = client.messages.create(
             body=f"Your OTP code is: {otp}",
@@ -32,6 +34,9 @@ def send_otp(phone_number, otp):
 
 def verify_otp(phone_number, otp):
     """Verify OTP for the user."""
+    print(otp_storage)
+    print(phone_number)
+    print(otp)
     stored_otp = otp_storage.get(phone_number)
     if stored_otp is None:
         return False
