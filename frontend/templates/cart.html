@@ -12,9 +12,21 @@
   <script src="../static/js/checkout.js" defer></script>
   <script src="../static/js/fetch-coupons.js" defer></script>
   <script src="../static/js/config.js" defer></script>
+  <script src="../static/js/clip-coupon.js" defer></script>
+  <script>
+  function showContactPopup() {
+    document.getElementById("contactPopup").style.display = "flex";
+  }
+
+  function closeContactPopup() {
+    document.getElementById("contactPopup").style.display = "none";
+  }
+  </script>
+
 </head>
 <body>
     <div class="app">
+
         <div class="top-bar">
             <img src="../static/resources/my-logo.png" alt="logo" class="mylogo" style="width: 107px;height: 81px;">
 
@@ -31,7 +43,8 @@
             
             <!--<h1 style="color: black;">Scan Product</h1>-->
             <p style="color: black;">how it works</p>
-            <p style="color: black;">contact</p>
+            <p style="color: black; cursor: pointer;" onclick="showContactPopup()">Contact</p>
+
             <div class="total-checkout-support-wrapper">
                 <div class="total-checkout-wrapper">
                     <div class="totals">
@@ -150,9 +163,9 @@
                 <h2>Your cart</h2>
 
                 <!--Steps Images-->
-                <img src="../static/images/step 1.png" alt="" class="step1 fade-in-left delay-1" height="200px" width="400px">
-                <img src="../static/images/step 2.png" alt="" class="step2 fade-in-left delay-2" height="200px" width="400px">
-                <img src="../static/images/step 3.png" alt="" class="step3 fade-in-left delay-3" height="200px" width="400px">
+                <img src="../static/images/step-1.png" alt="" class="step1 fade-in-left delay-1" height="200px" width="500px">
+                <img src="../static/images/step-2.png" alt="" class="step2 fade-in-left delay-2" height="200px" width="500px">
+                <img src="../static/images/step-3.png" alt="" class="step3 fade-in-left delay-3" height="200px" width="500px">
 
 
                 <!--
@@ -273,6 +286,7 @@
         </div>
 
 
+
         
         <!-- Signup Modal -->
         <div class="popup-overlay" id="signupModal">
@@ -304,9 +318,18 @@
         <div id="successAnimation" class="success-overlay">
             <img src="../static/resources/success animation.gif" alt="Success" class="success-gif">
         </div>
-
+        <!-- Contact Popup -->
+        <div id="contactPopup" class="popup_overlay" style="display: none;">
+        
+            <span class="close-btn" onclick="closeContactPopup()" style="position: absolute; top: 10px; right: 15px; font-size: 24px; cursor: pointer;">&times;</span>
+            <img src="../static/images/contact us.png" alt="Contact Info" style="max-width: 50%; height: auto;" onclick="closeContactPopup()">
+        
+        </div>
 
         
     </div>
+    
+
+
 </body>
 </html>

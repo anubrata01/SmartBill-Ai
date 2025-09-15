@@ -1,0 +1,65 @@
+{
+  "categories": [
+    {
+      "id": 0,
+      "name": "Britannia Nutri-choice"
+    },
+    {
+      "id": 1,
+      "name": "Cadbury Dairy Milk Chocolate"
+    },
+    {
+      "id": 2,
+      "name": "Cadbury Dairy Milk Crackle"
+    },
+    {
+      "id": 3,
+      "name": "CleanUp Garbage bag"
+    },
+    {
+      "id": 4,
+      "name": "Everest Chaat Masala"
+    },
+    {
+      "id": 5,
+      "name": "Everest Kashmirilal"
+    },
+    {
+      "id": 6,
+      "name": "Ganesh Atta"
+    },
+    {
+      "id": 7,
+      "name": "Ganesh Maida"
+    },
+    {
+      "id": 8,
+      "name": "Lays Blue (India Masala magic)"
+    },
+    {
+      "id": 9,
+      "name": "Lays Green Small pack (American style cream and onion)"
+    },
+    {
+      "id": 10,
+      "name": "Sprite"
+    },
+    {
+      "id": 11,
+      "name": "Thumps Up"
+    },
+    {
+      "id": 12,
+      "name": "VIM Dishwash liquid"
+    },
+    {
+      "id": 13,
+      "name": "Winkies Love Bite cake"
+    }
+  ],
+  "info": {
+    "year": 2025,
+    "version": "1.0",
+    "contributor": "Label Studio"
+  }
+}

@@ -1,4 +1,9 @@
 venv
 __pycache__
-config.py
+config
 config.h
+test.html
+backend/config.py
+test.py
+test2.py
+other essetials/

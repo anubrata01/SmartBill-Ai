@@ -1,85 +1,136 @@
-let cart = {}; // Tracks product quantities
-let lastDetectedTime = {}; // Tracks last detection timestamp
+let cart = {};
+window.cart = cart;
+let lastDetectedTime = {};
+let isWaitingForWeight = false;
+const detectionDelay = 2000;
+const maxWeightRetries = 5;
 
-function getPrediction() {
-    fetch('http://192.168.1.113:5000/predict')
-        .then(response => response.json())
-        .then(data => {
-            console.log("Prediction:", data);
+async function startPredictionLoop() {
+    while (true) {
+        if (!isWaitingForWeight) {
+            await getPrediction();
+        }
+        await new Promise(resolve => setTimeout(resolve, 500)); // Prevent CPU locking
+    }
+}
 
-            if (data.product) {
-                let detected_name = data.product;
-                let image = data.image;
-                let price = parseFloat(data.price); // Ensure price is a number
-                
-                let currentTime = Date.now();
-                let detectionDelay = 10000; // 10 seconds threshold
+async function getPrediction() {
+    try {
+        const res = await fetch(`${API_BASE_URL}/predict`);
+        const variants = await res.json();
 
-                if (!lastDetectedTime[detected_name] || 
-                    (currentTime - lastDetectedTime[detected_name]) > detectionDelay) {
-                    
-                    // If product exists, increase quantity and total price
-                    if (cart[detected_name]) {
-                        cart[detected_name]["quantity"]++;
-                        cart[detected_name]["price"] += price;
+        if (!Array.isArray(variants) || variants.length === 0 || !variants[0].product) return;
+
+        const baseName = variants[0].product;
+        const currentTime = Date.now();
+        // || (currentTime - lastDetectedTime[baseName] > detectionDelay)
+        if (!lastDetectedTime[baseName] ) {
+            isWaitingForWeight = true;
+
+            fetch(`${API_BASE_URL}/weight`)
+                .then(res => res.json())
+                .then(data => {
+                    const actualWeight = parseFloat(data.weight);
+                    console.log(`⚖️ Actual weight: ${actualWeight}g`);
+
+                    const matchedVariant = variants.find(v => Math.abs(parseFloat(v.weight) - actualWeight) <= 10);
+
+                    if (matchedVariant) {
+                        const { product, price, image, weight, variant } = matchedVariant;
+                        const uniqueName = `${product} - ${variant}`; // 👈 Make cart key unique
+                        waitForWeight(uniqueName, parseFloat(price), image, parseFloat(weight), currentTime, 0);
                     } else {
-                        // Add new product
-                        cart[detected_name] = {
-                            "quantity": 1,
-                            "price": price,
-                            "image": image
-                        };
+                        console.warn("❌ No matching variant for actual weight.");
+                        isWaitingForWeight = false;
                     }
+                })
+                .catch(err => {
+                    console.error("Weight fetch error:", err);
+                    isWaitingForWeight = false;
+                });
+        }
+    } catch (error) {
+        console.error("Prediction error:", error);
+    }
+}
 
-                    
-                    updateCart();
+function waitForWeight(name, price, image, expectedWeight, timestamp, retryCount) {
+    if (retryCount > maxWeightRetries) {
+        console.warn(`Max retries reached for ${name}. Cancelling.`);
+        isWaitingForWeight = false;
+        return;
+    }
+
+    fetch(`${API_BASE_URL}/weight`)
+        .then(res => res.json())
+        .then(data => {
+            const actual = parseFloat(data.weight);
+            console.log(`⚖️ Weight check for ${name}: ${actual}g`);
+
+            if (Math.abs(expectedWeight - actual) <= 10) {
+                if (cart[name]) {
+                    cart[name].quantity++;
+                    cart[name].price += price;
+                } else {
+                    cart[name] = { quantity: 1, price, image };
                 }
-                lastDetectedTime[detected_name] = currentTime; // Solve duplicate detection issue
+                lastDetectedTime[name] = timestamp;
+                updateCart();
+                isWaitingForWeight = false;
+            } else {
+                setTimeout(() => {
+                    waitForWeight(name, price, image, expectedWeight, timestamp, retryCount + 1);
+                }, 3000);
             }
         })
-        .catch(error => console.error("Error fetching prediction:", error));
+        .catch(err => {
+            console.error("Weight fetch error:", err);
+            isWaitingForWeight = false;
+        });
 }
-
-// Fetch new prediction every 5 seconds
-setInterval(getPrediction, 5000);
 
 function updateCart() {
-    let cart_item = document.querySelector('.cart');
-    cart_item.innerHTML = `<h2>Your cart</h2>
-    <div class="add-item-btn">Add item with Code</div>`;
-    let no_of_product=0
-    let total_price = 0
-    for (let product in cart) {
-        let li = document.createElement('div');
-        li.className = `cart-item`;
-        li.innerHTML = `
-            <img src="${cart[product]["image"]}" alt="${product}" width="50">
+    const cartDiv = document.querySelector('.cart');
+    cartDiv.innerHTML = `<h2>Your cart</h2>`;
+    let total = 0, count = 0;
+
+    for (let name in cart) {
+        const { quantity, price, image } = cart[name];
+        const item = document.createElement('div');
+        item.className = 'cart-item';
+        item.innerHTML = `
+            <img src="${image}" alt="${name}" width="50">
             <div class="item-details">
-                <div><strong>${product} (x${cart[product]["quantity"]})</strong></div>
+                <div><strong>${name} (x${quantity})</strong></div>
             </div>
             <div class="price-box">
-                <div class="new">₹${cart[product]["price"].toFixed(2)}</div>
-                <div class="old">$5.99</div>
+                <div class="new">₹${price.toFixed(2)}</div>
             </div>
-            
-            <img src="../static/resources/trash bin 1 black.svg" alt="remove item" class="remove-item" onclick="removeItem('${product}')">
+            <img src="../static/resources/trash bin 1 black.svg" alt="remove item" class="remove-item" onclick="removeItem('${name}')">
         `;
-        cart_item.appendChild(li);
-        no_of_product+=cart[product]["quantity"]
-        total_price +=cart[product]["price"]
+        cartDiv.appendChild(item);
+        total += price;
+        count += quantity;
     }
-    document.querySelector('.old-amount').querySelector('.amount').innerHTML=`₹${total_price}`;
-    document.getElementById("cartCount").innerText = `${no_of_product}`;
+
+    document.querySelector('.old-amount .amount').innerHTML = `₹${total.toFixed(2)}`;
+    document.getElementById("cartCount").innerText = count;
 }
 
-function removeItem(product) {
-    if (cart[product]["quantity"] > 1) {
-        let pricePerUnit = cart[product]["price"] / cart[product]["quantity"];
-        cart[product]["quantity"]--;
-        cart[product]["price"] -= pricePerUnit;
+function removeItem(name) {
+    if (!cart[name]) return;
+
+    const item = cart[name];
+    if (item.quantity > 1) {
+        const unitPrice = item.price / item.quantity;
+        item.quantity--;
+        item.price -= unitPrice;
     } else {
-        delete cart[product];
-        delete lastDetectedTime[product]; // Reset detection time when removed
+        delete cart[name];
+        delete lastDetectedTime[name];
     }
+
     updateCart();
 }
+
+startPredictionLoop();

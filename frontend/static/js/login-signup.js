@@ -1,6 +1,7 @@
 const loginModal = document.getElementById("loginModal");
 const signupModal = document.getElementById("signupModal");
 const otpModel = document.getElementById("otpModel");
+localStorage.setItem("isLoggedIn", "false");
 function openLogin() {
   loginModal.classList.add("active");
 }
@@ -30,6 +31,7 @@ function showOTP() {
 // variable to hold phone number
 let phoneNumber='';
 let Username = "";
+let islogin = false;
 // Function to login
 function login(){
   phoneNumber = document.getElementById("LoginPhone").value;
@@ -115,6 +117,8 @@ function verifyOTP() {
     if (data.message) {
       alert("OTP verified successfully!");
       showSuccessAnimation();
+      localStorage.setItem("isLoggedIn", "true");  // set login flag
+      islogin = true;  // <-- Set flag
       // Proceed with login or other actions
       Create_user(Username,phoneNumber)
       document.getElementById("signUpWrapper").innerHTML=`<h2 style="color: black; padding: 10px; font-weight:Bolder">Welcome ${Username}!</h2>`

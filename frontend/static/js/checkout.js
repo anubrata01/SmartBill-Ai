@@ -1,7 +1,16 @@
 function check_out() {
+    const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+    console.log(isLoggedIn);
+    if (!isLoggedIn) {
+        alert("⚠ Please login or sign up to continue to checkout.");
+        openLogin();  // call your modal opening function
+        return;
+    }
+
     localStorage.setItem("cart", JSON.stringify(cart));
     window.location.href = `${API_BASE_URL}/checkout`;
 }
+
 
 window.handlePayment = function (e) {
     e.preventDefault();

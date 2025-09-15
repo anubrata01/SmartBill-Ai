@@ -1,19 +1,144 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
-    <link rel="stylesheet" href="../static/css/home.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SmartBill AI</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, #a7daff, #f7faff);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 20px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Decorative blurred circles */
+    @keyframes burst {
+        0% {
+        transform: scale(0.5);
+        opacity: 0;
+        }
+        30% {
+        opacity: 0.5;
+        }
+        100% {
+        transform: scale(2.5);
+        opacity: 0;
+        }
+    }
+
+    body::before, body::after {
+        content: "";
+        position: absolute;
+        border-radius: 50%;
+        background: radial-gradient(circle, #006eff 0%, transparent 70%);
+        z-index: 0;
+        animation: burst 6s ease-out infinite;
+    }
+
+    body::before {
+        width: 200px;
+        height: 200px;
+        top: -50px;
+        left: -50px;
+        animation-delay: 0s;
+    }
+
+    body::after {
+        width: 300px;
+        height: 300px;
+        bottom: -100px;
+        right: -100px;
+        animation-delay: 3s;
+    }
+
+    .container {
+      position: relative;
+      z-index: 1;
+    }
+
+    .logo {
+      width: 100px;
+      margin: 0 auto 20px;
+      opacity: 0.9;
+    }
+
+    h1 {
+      font-size: 3rem;
+      color: #1e3a8a;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    p {
+      font-size: 1.2rem;
+      color: #4b5563;
+      margin-bottom: 40px;
+      max-width: 500px;
+      margin-inline: auto;
+    }
+
+    .start-btn {
+      background-color: #2563eb;
+      color: white;
+      padding: 16px 32px;
+      font-size: 1.1rem;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      box-shadow: 0 8px 20px rgba(37, 99, 235, 0.3);
+      transition: all 0.3s ease;
+    }
+
+    .start-btn:hover {
+      background-color: #1d4ed8;
+      transform: translateY(-2px);
+    }
+
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 2rem;
+      }
+
+      p {
+        font-size: 1rem;
+      }
+
+      .start-btn {
+        padding: 12px 24px;
+        font-size: 1rem;
+      }
+
+      .logo {
+        width: 80px;
+      }
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <div class="cart">
-            <img src="../static/resources/cart animation 2.gif" alt="Cart animation" class="cartAnimation" width="100">
-        </div>
-        <div class="text">
-            <img src="../static/resources/text animation.gif" class="textAnimation" alt="Text animation" width="300">
-        </div>
-    </div>
+  <div class="container">
+    <img src="../static/resources/my-logo.png" alt="SmartBill AI Logo" class="logo" />
+    <h1>SmartBill AI</h1>
+    <p>Smarter billing for stores using AI-powered checkout.</p>
+    <button class="start-btn" onclick="StartShopping()">Get Started</button>
+  </div>
+
+  <script>
+    function StartShopping() {
+      window.location.href = "/cart";
+    }
+  </script>
 </body>
 </html>

@@ -60,7 +60,7 @@ function updateCart() {
                 <span>₹${total_price.toFixed(2)}</span>
             </div>
             <div class="price-line">
-                <span>Shipping Fee</span>
+                <span>Carry-bag Fee</span>
                 <span>Free</span>
             </div>
             <div class="price-line total">

@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-  fetch(`${API_BASE_URL}/coupon`)
+  fetch("/coupon")
     .then(res => res.json())
     .then(coupons => {
       const container = document.querySelector(".coupon-card-wrapper"); // Keeping your structure

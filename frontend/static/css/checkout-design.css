@@ -1,100 +1,142 @@
-h2{
-    position: sticky;
-    top: 0;
-    background: white;
-    z-index: 10;
-    padding: 10px;
-    padding-top: 30px;
+/* === General Styles === */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f1f2f4;
+    margin: 0;
+    padding: 20px;
 }
 
+/* === Cart Container === */
+.cart {
+    max-width: 900px;
+    margin: auto;
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+/* === Order Summary === */
+.order-summary {
+    flex: 2;
+}
+
+.order-summary h2 {
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+/* === Cart Item === */
 .cart-item {
-  background-color: #fefefe;
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  margin-bottom: 15px;
-  padding: 15px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-.cart-item img {
-  width: 50px;
-  height: 50px;
-  border-radius: 8px;
-}
-.remove-item{
-  width: 40px !important;
-  height: 40px !important;
-  padding: 10px;
-}
-.coupon-details, .item-details {
-  flex: 1;
-  margin-left: 15px;
-}
-.clip-btn {
-  background-color: #ffd400ff;
-  padding: 5px 10px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-weight: 600;
-}
-.price-box {
-  text-align: right;
-}
-.price-box .new {
-  background-color: #ffd400ff;
-  padding: 5px 8px;
-  font-weight: 700;
-  border-radius: 5px;
-}
-.price-box .old {
-  font-size: 0.9rem;
-  color: #999;
-  text-decoration: line-through;
-}
-.add-item-btn {
-  margin-top: 20px;
-  background-color: #0800a8;
-  color: white;
-  padding: 1rem;
-  text-align: center;
-  align-items: center;
-  border-radius: 10rem;
-  font-weight: bold;
-  cursor: pointer;
-  position: fixed;
-  bottom: 5%;
-  right: 5%;
-  z-index: 999;
-  width: 40vw;
-  height: 10vh;
-  font-size:x-large;
-}
-.add-item-btn:active{
-    background-color:  #00d889;
-}
-.devider{
-    width: 1px;
-    background-color: #ddd;
-    height: 100%;
-
-}
-.payment {
-    margin-top: 20px;
-    background-color: #0800a8;
-    color: white;
-    padding: 1rem;
-    text-align: center;
+    display: flex;
     align-items: center;
-    border-radius: 10rem;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    background-color: #fafafa;
+}
+
+.cart-item img:first-child {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-right: 15px;
+}
+
+.item-details {
+    flex-grow: 1;
+}
+
+.item-details strong {
+    font-size: 1rem;
+    color: #222;
+}
+
+.price-box {
+    text-align: right;
+    margin-right: 15px;
+}
+
+.price-box .new {
+    font-weight: bold;
+    color: #222;
+    font-size: 1rem;
+}
+
+.price-box .old {
+    text-decoration: line-through;
+    color: #888;
+    font-size: 0.9rem;
+}
+
+.remove-item {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.remove-item:hover {
+    transform: scale(1.1);
+}
+
+/* === Price Details === */
+.price-details {
+    flex: 1;
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    height: fit-content;
+}
+
+.price-details h3 {
+    font-size: 1rem;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 10px;
+}
+
+.price-line {
+    display: flex;
+    justify-content: space-between;
+    margin: 10px 0;
+    color: #333;
+}
+
+.total {
+    font-weight: bold;
+    font-size: 1.05rem;
+}
+
+.savings {
+    margin-top: 15px;
+    color: green;
+    font-size: 0.95rem;
+    font-weight: bold;
+}
+
+/* === Continue Button === */
+.continue-btn {
+    width: 100%;
+    background-color: #fb641b;
+    color: white;
+    padding: 12px;
+    margin-top: 20px;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
     font-weight: bold;
     cursor: pointer;
-    position: fixed;
-    bottom: 5%;
-    right: 5%;
-    z-index: 999;
-    width: 40vw;
-    height: 10vh;
-    font-size:x-large;
-  }
+    transition: background-color 0.2s ease;
+}
+
+.continue-btn:hover {
+    background-color: #d35a12;
+}
