@@ -2,7 +2,6 @@ flask
 mysql-connector-python
 ultralytics
 numpy
-jsonlib
 opencv-python
 twilio
 razorpay
