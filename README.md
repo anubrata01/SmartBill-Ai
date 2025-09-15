@@ -164,5 +164,5 @@ MIT License. See `LICENSE` for details.
 ## 📬 Contact
 
 Developed by **Anubrata Dey**  
-📧 Email: [you@example.com]  
+📧 Email: [sahoo.anubrata100@gmail.com]  
 🌐 GitHub: [anubrata01](https://github.com/anubrata01)
